@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+ >
+
+    <TextView
+        android:id="@+id/text_title"
+        style="@style/text_style_14sp_black"
+        android:layout_height="@dimen/dp50"
+        android:background="@color/sign_title_bg"
+        android:layout_weight="1"
+        android:text="타이틀" />
+
+    <EditText
+        android:id="@+id/input_value"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp50"
+        android:layout_weight="1"
+        android:hint="@string/signup_input_value_hint"
+        android:textColor="#000000" />
+</LinearLayout>

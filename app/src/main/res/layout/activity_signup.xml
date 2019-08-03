@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/view_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"></include>
+
+        <TextView
+            android:id="@+id/text_title_profile"
+            style="@style/text_style_24sp_black"
+            android:text="@string/signup_title_profile_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/splash_logo"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title_profile"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <include
+            android:id="@+id/include_nickname"
+            layout="@layout/view_signup_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.028"></include>
+
+        <include
+            android:id="@+id/include_pwd"
+            layout="@layout/view_signup_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_nickname"
+            app:layout_constraintVertical_bias="0.0"></include>
+
+        <include
+            android:id="@+id/include_re_pwd"
+            layout="@layout/view_signup_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_pwd"
+            app:layout_constraintVertical_bias="0.0"></include>
+
+
+        <!--리니어로 하면 이거 지정이 참 어려움..-->
+        <Button
+            android:id="@+id/confirm_btn"
+            style="@style/bottom_confirm_btn"
+            android:text="@string/confrim_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_re_pwd"
+            app:layout_constraintVertical_bias="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
