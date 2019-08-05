@@ -28,7 +28,7 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/profile_image"
             style="@style/splash_logo"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -41,16 +41,28 @@
             app:layout_constraintTop_toBottomOf="@+id/text_title_profile"
             app:layout_constraintVertical_bias="0.0" />
 
+
+        <Button
+            android:id="@+id/select_profile_btn"
+            android:layout_width="@dimen/dp24"
+            android:layout_height="@dimen/dp24"
+            android:background="@color/color_white"
+            app:layout_constraintCircle="@id/profile_image"
+            app:layout_constraintCircleAngle="135"
+            app:layout_constraintCircleRadius="80dp" />
+
         <include
             android:id="@+id/include_nickname"
             layout="@layout/view_signup_input"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image"
             app:layout_constraintVertical_bias="0.028"></include>
 
         <include
@@ -58,7 +70,9 @@
             layout="@layout/view_signup_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dp24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -71,7 +85,9 @@
             layout="@layout/view_signup_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dp24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
