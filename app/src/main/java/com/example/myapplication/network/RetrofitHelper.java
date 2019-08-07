@@ -1,9 +1,11 @@
 package com.example.myapplication.network;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -43,4 +45,14 @@ public class RetrofitHelper {
         return retrofit.create(SignupApi.class);
     }
 
+
+    public static String getErrorMsg(Response<?> response){
+        try {
+            return response.errorBody().string();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

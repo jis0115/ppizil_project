@@ -1,111 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/include_toolbar"
-            layout="@layout/view_toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"></include>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_title_profile"
-            style="@style/text_style_24sp_black"
-            android:text="@string/signup_title_profile_image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
-            app:layout_constraintVertical_bias="0.1" />
+            <include
+                android:id="@+id/include_toolbar"
+                layout="@layout/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"></include>
 
-        <ImageView
-            android:id="@+id/profile_image"
-            style="@style/splash_logo"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title_profile"
-            app:layout_constraintVertical_bias="0.0" />
+            <LinearLayout
+                android:id="@+id/input_viewGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp24"
+                android:paddingEnd="@dimen/dp24"
+                android:paddingBottom="@dimen/dp24"
+                app:layout_constraintBottom_toTopOf="@+id/confirm_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+                app:layout_constraintVertical_bias="0.0">
 
+                <TextView
+                    android:id="@+id/text_title_profile"
+                    style="@style/text_style_24sp_black"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="@string/signup_title_profile_image" />
 
-        <Button
-            android:id="@+id/select_profile_btn"
-            android:layout_width="@dimen/dp24"
-            android:layout_height="@dimen/dp24"
-            android:background="@color/color_white"
-            app:layout_constraintCircle="@id/profile_image"
-            app:layout_constraintCircleAngle="135"
-            app:layout_constraintCircleRadius="80dp" />
-
-        <include
-            android:id="@+id/include_nickname"
-            layout="@layout/view_signup_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginEnd="@dimen/dp24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image"
-            app:layout_constraintVertical_bias="0.028"></include>
-
-        <include
-            android:id="@+id/include_pwd"
-            layout="@layout/view_signup_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dp24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_nickname"
-            app:layout_constraintVertical_bias="0.0"></include>
-
-        <include
-            android:id="@+id/include_re_pwd"
-            layout="@layout/view_signup_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dp24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_pwd"
-            app:layout_constraintVertical_bias="0.0"></include>
+                <ImageView
+                    android:id="@+id/profile_image"
+                    style="@style/splash_logo"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp" />
 
 
-        <!--리니어로 하면 이거 지정이 참 어려움..-->
-        <Button
-            android:id="@+id/confirm_btn"
-            style="@style/bottom_confirm_btn"
-            android:text="@string/confrim_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_re_pwd"
-            app:layout_constraintVertical_bias="1" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/select_profile_btn"
+                    android:layout_width="@dimen/dp24"
+                    android:layout_height="@dimen/dp24"
+                    android:background="@color/color_white"
+                    app:layout_constraintCircle="@id/profile_image"
+                    app:layout_constraintCircleAngle="135"
+                    app:layout_constraintCircleRadius="80dp" />
+
+                <include
+                    android:id="@+id/include_nickname"
+                    layout="@layout/view_signup_plain_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></include>
+
+                <include
+                    android:id="@+id/include_age"
+                    layout="@layout/view_signup_plain_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"></include>
+
+                <include
+                    android:id="@+id/include_addr"
+                    layout="@layout/view_signup_plain_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"></include>
+
+                <TextView
+                    android:id="@+id/text_gender_title"
+                    style="@style/text_style_16sp_black"
+                    android:layout_gravity="left"
+                    android:text="@string/signup_title_gender" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:checkedButton="@id/male"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        android:layout_width="@dimen/dp24"
+                        android:layout_height="@dimen/dp24"
+                        android:layout_gravity="left" />
+
+                    <RadioButton
+                        android:id="@+id/female"
+                        android:layout_width="@dimen/dp24"
+                        android:layout_height="@dimen/dp24" />
+                </RadioGroup>
+
+                <include
+                    android:id="@+id/include_pwd"
+                    layout="@layout/view_signup_pwd_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"></include>
+
+                <include
+                    android:id="@+id/include_re_pwd"
+                    layout="@layout/view_signup_pwd_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"></include>
+
+            </LinearLayout>
+
+
+            <!--리니어로 하면 이거 지정이 참 어려움..-->
+            <Button
+                android:id="@+id/confirm_btn"
+                style="@style/bottom_confirm_btn"
+                android:layout_marginTop="8dp"
+                android:text="@string/confrim_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

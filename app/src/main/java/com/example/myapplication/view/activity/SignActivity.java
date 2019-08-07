@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,12 +28,23 @@ import com.example.myapplication.Utils.MakeLog;
 import com.example.myapplication.data.entity.SignupTitles;
 import com.example.myapplication.data.model.SignupModel;
 import com.example.myapplication.databinding.ActivitySignupBinding;
+import com.example.myapplication.network.RetrofitHelper;
 import com.example.myapplication.view.custom.BaseActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignActivity extends BaseActivity implements View.OnClickListener {
 
@@ -61,8 +74,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         setTitlesSet();
     }
 
+
     public void addTitleList() {
         titlesList.add(binding.includeNickname.textTitle);
+        titlesList.add(binding.includeAge.textTitle);
+        titlesList.add(binding.includeAddr.textTitle);
         titlesList.add(binding.includePwd.textTitle);
         titlesList.add(binding.includeRePwd.textTitle);
     }
@@ -85,12 +101,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         switch (id) {
             case R.id.confirm_btn:
                 sumValues();
-                if (checkValid() && checkImageFile() != null) {
+                if (checkValid()) {
                     if (checkPwdDuplicate()) {
                         Const.showToastMsg(SignActivity.this, "Success!");
-                        MakeLog.log("SignupEntity", Const.toJsonString(signupModel.getSignupEntity()));
                         //startNextActivity(MainActivity.class);
-
+                        //requestRegistApi();
                     } else {
                         Const.showToastMsg(SignActivity.this, "Not dulplicated Pwd!");
                     }
@@ -132,17 +147,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void sumValues() {
-        signupModel.setUserName(binding.includeNickname.inputValue.getText().toString());
-        signupModel.setPwd(binding.includePwd.inputValue.getText().toString());
-        signupModel.setRePwd(binding.includeRePwd.inputValue.getText().toString());
+        signupModel.getSignupEntity().setUserName(binding.includeNickname.inputValue.getText().toString());
+        signupModel.getSignupEntity().setAddr(binding.includeAddr.inputValue.getText().toString());
+        signupModel.getSignupEntity().setPassword(binding.includePwd.inputValue.getText().toString());
+        signupModel.getSignupEntity().setRePassword(binding.includeRePwd.inputValue.getText().toString());
     }
 
     public boolean checkValid() {
         return signupModel.checkValid();
-    }
-
-    public Bitmap checkImageFile() {
-        return signupModel.getBitmap();
     }
 
 
@@ -154,34 +166,46 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         if (requestCode == Const.TAG_ALBUM) {
             if (data != null && data.getData() != null) {
                 Uri uri = data.getData();
-                saveBitmap(uri);
+                signupModel.setFilePath(uri.toString());
+                setProfileImage(uri);
             } else {
 
             }
         }
     }
 
-    public void saveBitmap(Uri uri) {
+    public void setProfileImage(Uri uri) {
         Glide.with(this)
-                .asBitmap()
                 .load(uri.toString())
-                .into(new CustomTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        binding.profileImage.setScaleType(ImageView.ScaleType.FIT_XY);
-                        binding.profileImage.setImageBitmap(resource);
-                        if (resource != null) {
-                            signupModel.setBitmap(resource);
-                        } else {
-                            Const.showToastMsg(SignActivity.this, "Photo is null!");
-                        }
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                    }
-                });
+                .centerCrop()
+                .into(binding.profileImage);
+    }
 
 
+    public void requestRegistApi() {
+        MultipartBody.Part part = signupModel.getMultipartObj();
+        RequestBody requestBody = signupModel.getConvertToRequestBody();
+
+        Call<ResponseBody> call = RetrofitHelper.getinstance().getSignupApi().requestSignupApi(part, requestBody);
+        Callback<ResponseBody> callback = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Const.showToastMsg(SignActivity.this, "Success Regis!");
+                    //  SignActivity.this.startNextActivity(MainActivity.class);
+                } else {
+                    String errorMsg = RetrofitHelper.getErrorMsg(response);
+                    Const.showToastMsg(SignActivity.this, errorMsg);
+                    MakeLog.log("requestRegistApi() Fail", errorMsg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        };
+
+        //call.enqueue(callback);
     }
 }

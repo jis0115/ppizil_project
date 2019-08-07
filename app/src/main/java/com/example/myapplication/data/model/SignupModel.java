@@ -5,8 +5,16 @@ import android.graphics.Bitmap;
 import com.example.myapplication.Utils.Const;
 import com.example.myapplication.data.entity.SignupEntity;
 
-public class SignupModel implements SignupInterface {
+import java.io.File;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+public class SignupModel {
+
+    public static final int PWD_LENGTH = 4;
+    private String filePath;
     private SignupEntity signupEntity;
 
     public SignupModel() {
@@ -17,30 +25,38 @@ public class SignupModel implements SignupInterface {
         return signupEntity;
     }
 
-    @Override
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     public boolean checkValid() {
         if (Const.isNotNullAndEmpty(
                 signupEntity.getUserName(),
+                signupEntity.getAddr(),
                 signupEntity.getPassword(),
-                signupEntity.getRePassword() )) {
+                signupEntity.getRePassword(),
+                filePath) &&
+                isLenght4()) {
             return true;
         } else {
             return false;
         }
     }
 
-    @Override
-    public Bitmap getBitmap() {
-        return signupEntity.getBitmap();
+    public boolean isLenght4() {
+        if (getSignupEntity().getPassword().length() == PWD_LENGTH &&
+                getSignupEntity().getRePassword().length() == PWD_LENGTH) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    @Override
-    public void setBitmap(Bitmap bitmap) {
-        signupEntity.setBitmap(bitmap);
-    }
 
-
-    @Override
     public boolean checkPwdDuplicate() {
         if (signupEntity.getPassword().equals(signupEntity.getRePassword())) {
             return true;
@@ -49,21 +65,20 @@ public class SignupModel implements SignupInterface {
         }
     }
 
-    @Override
-    public void setUserName(String name) {
-        signupEntity.setUserName(name);
 
+
+
+    public File getImageFile() {
+        File file = new File(filePath);
+        return file;
     }
 
-    @Override
-    public void setPwd(String pwd) {
-        signupEntity.setPassword(pwd);
+    public MultipartBody.Part getMultipartObj() {
+        return Const.prepareFilePart(getImageFile());
     }
 
-    @Override
-    public void setRePwd(String rePwd) {
-        signupEntity.setRePassword(rePwd);
+    public RequestBody getConvertToRequestBody() {
+        return RequestBody.create(MediaType.parse("text/plain"), Const.toJsonString(getSignupEntity()));
     }
-
 
 }

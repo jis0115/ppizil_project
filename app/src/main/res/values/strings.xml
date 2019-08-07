@@ -7,7 +7,7 @@
     <string name="signup_title_pwd">패스워드</string>
     <string name="signup_title_profile_image">프로필 이미지</string>
     <string name="signup_input_value_hint">해당 값을 입력 해 주세요</string>
-
+    <string name="signup_title_gender">성별</string>
 
 
 
