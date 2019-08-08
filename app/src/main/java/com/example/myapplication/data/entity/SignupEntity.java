@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 
 public class SignupEntity {
     private String userName;
+    private int age;
     private String addr;
     private String password;
     private String rePassword;
+    private String gender="M"; // 성별은 , 레이디오 버튼이  디폴드 값 지정이 애매하기 때문에
 
 
 
@@ -36,6 +38,22 @@ public class SignupEntity {
 
     public String getRePassword() {
         return rePassword;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setRePassword(String rePassword) {

@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/color_white">
 
             <include
                 android:id="@+id/include_toolbar"
@@ -28,7 +29,7 @@
 
             <LinearLayout
                 android:id="@+id/input_viewGroup"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center|top"
                 android:orientation="vertical"
@@ -48,23 +49,32 @@
                     android:layout_marginTop="@dimen/dp15"
                     android:text="@string/signup_title_profile_image" />
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    style="@style/splash_logo"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/dp15"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        style="@style/splash_logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
 
-                <Button
-                    android:id="@+id/select_profile_btn"
-                    android:layout_width="@dimen/dp24"
-                    android:layout_height="@dimen/dp24"
-                    android:background="@color/color_white"
-                    app:layout_constraintCircle="@id/profile_image"
-                    app:layout_constraintCircleAngle="135"
-                    app:layout_constraintCircleRadius="80dp" />
+                    <Button
+                        android:id="@+id/select_profile_btn"
+                        android:layout_width="@dimen/dp24"
+                        android:layout_height="@dimen/dp24"
+                        android:background="@color/color_white"
+                        app:layout_constraintCircle="@id/profile_image"
+                        app:layout_constraintCircleAngle="135"
+                        app:layout_constraintCircleRadius="80dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <include
                     android:id="@+id/include_nickname"
@@ -98,18 +108,22 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:checkedButton="@id/male"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/male"
-                        android:layout_width="@dimen/dp24"
-                        android:layout_height="@dimen/dp24"
-                        android:layout_gravity="left" />
+                        android:text="@string/signup_radio_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp24" />
 
                     <RadioButton
                         android:id="@+id/female"
-                        android:layout_width="@dimen/dp24"
-                        android:layout_height="@dimen/dp24" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp24"
+                        android:text="@string/signpu_radio_femal"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dp8" />
                 </RadioGroup>
 
                 <include

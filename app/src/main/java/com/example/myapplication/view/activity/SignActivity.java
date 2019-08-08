@@ -2,29 +2,21 @@ package com.example.myapplication.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.myapplication.R;
-import com.example.myapplication.Utils.Const;
-import com.example.myapplication.Utils.MakeLog;
+import com.example.myapplication.utils.Const;
+import com.example.myapplication.utils.MakeLog;
 import com.example.myapplication.data.entity.SignupTitles;
 import com.example.myapplication.data.model.SignupModel;
 import com.example.myapplication.databinding.ActivitySignupBinding;
@@ -33,11 +25,8 @@ import com.example.myapplication.view.custom.BaseActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignActivity extends BaseActivity implements View.OnClickListener {
+public class SignActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
 
     private ActivitySignupBinding binding;
@@ -76,6 +65,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
 
 
     public void addTitleList() {
+        binding.includeAge.inputValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+
         titlesList.add(binding.includeNickname.textTitle);
         titlesList.add(binding.includeAge.textTitle);
         titlesList.add(binding.includeAddr.textTitle);
@@ -93,6 +85,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
     public void setListener() {
         binding.confirmBtn.setOnClickListener(this);
         binding.selectProfileBtn.setOnClickListener(this);
+        binding.radioGroup.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -101,10 +94,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         switch (id) {
             case R.id.confirm_btn:
                 sumValues();
-                if (checkValid()) {
-                    if (checkPwdDuplicate()) {
+                if (signupModel.checkValid()) {
+                    if (signupModel.checkPwdDuplicate()) {
+                        MakeLog.log("객체 시리얼라이즈",Const.toJsonString(signupModel.getSignupEntity()));
                         Const.showToastMsg(SignActivity.this, "Success!");
-                        //startNextActivity(MainActivity.class);
+                        startNextActivity(MainActivity.class);
                         //requestRegistApi();
                     } else {
                         Const.showToastMsg(SignActivity.this, "Not dulplicated Pwd!");
@@ -123,6 +117,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    //권한
     public PermissionListener permissionListener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
@@ -135,9 +130,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         }
     };
 
-    public boolean checkPwdDuplicate() {
-        return signupModel.checkPwdDuplicate();
-    }
+
+    //
 
 
     public void RendingAlbum() {
@@ -148,15 +142,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
 
     public void sumValues() {
         signupModel.getSignupEntity().setUserName(binding.includeNickname.inputValue.getText().toString());
+
+        String age = binding.includeAge.inputValue.getText().toString();
+        if(Const.isInteger(age)){
+            signupModel.getSignupEntity().setAge(Integer.parseInt(age));
+        }
+        else{
+            Const.showToastMsg(SignActivity.this,"Check your Age");
+        }
         signupModel.getSignupEntity().setAddr(binding.includeAddr.inputValue.getText().toString());
         signupModel.getSignupEntity().setPassword(binding.includePwd.inputValue.getText().toString());
         signupModel.getSignupEntity().setRePassword(binding.includeRePwd.inputValue.getText().toString());
     }
-
-    public boolean checkValid() {
-        return signupModel.checkValid();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -174,6 +171,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    //뺄 수 있으면 Utils 메서드로 빼기
     public void setProfileImage(Uri uri) {
         Glide.with(this)
                 .load(uri.toString())
@@ -207,5 +205,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         };
 
         //call.enqueue(callback);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        int id = radioGroup.getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.male:
+                signupModel.getSignupEntity().setGender("M"); //남성
+                break;
+            case R.id.female:
+                signupModel.getSignupEntity().setGender("F");// 여성
+                break;
+        }
     }
 }

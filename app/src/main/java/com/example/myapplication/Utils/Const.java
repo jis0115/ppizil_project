@@ -1,9 +1,6 @@
-package com.example.myapplication.Utils;
+package com.example.myapplication.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,7 +8,6 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -41,6 +37,7 @@ public class Const {
     public static void showToastMsg(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
+
     public static final String MULTIPART_FORM_DATA = "image/*";
 
     @NonNull
@@ -48,11 +45,23 @@ public class Const {
         try {
             MakeLog.log(" 파일이름", "" + file.getName());
             RequestBody requestFile = (RequestBody) RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
-            return MultipartBody.Part.createFormData("files", "" , requestFile);
+            return MultipartBody.Part.createFormData("files", "", requestFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
+
+    public static boolean isInteger(String text) {
+        if (!Const.isNotNullAndEmpty(text))
+            return false;
+
+        try {
+            Integer.parseInt(text);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

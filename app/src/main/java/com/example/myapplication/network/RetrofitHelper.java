@@ -39,14 +39,12 @@ public class RetrofitHelper {
 
     private HttpLoggingInterceptor logging;
     private OkHttpClient.Builder httpClient;
-
-
-    public  SignupApi getSignupApi() {
+    
+    public SignupApi getSignupApi() {
         return retrofit.create(SignupApi.class);
     }
 
-
-    public static String getErrorMsg(Response<?> response){
+    public static String getErrorMsg(Response<?> response) {
         try {
             return response.errorBody().string();
 

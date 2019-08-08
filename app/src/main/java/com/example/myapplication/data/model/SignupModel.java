@@ -1,8 +1,6 @@
 package com.example.myapplication.data.model;
 
-import android.graphics.Bitmap;
-
-import com.example.myapplication.Utils.Const;
+import com.example.myapplication.utils.Const;
 import com.example.myapplication.data.entity.SignupEntity;
 
 import java.io.File;
@@ -36,9 +34,11 @@ public class SignupModel {
     public boolean checkValid() {
         if (Const.isNotNullAndEmpty(
                 signupEntity.getUserName(),
+                signupEntity.getAge()+"",
                 signupEntity.getAddr(),
                 signupEntity.getPassword(),
                 signupEntity.getRePassword(),
+                signupEntity.getGender(),
                 filePath) &&
                 isLenght4()) {
             return true;
