@@ -69,6 +69,7 @@
         <item name="android:layout_width">@dimen/dp18</item>
         <item name="android:layout_height">@dimen/dp18</item>
     </style>
+
     <style name="button_cover">
         <item name="android:layout_height">@dimen/dp36</item>
         <item name="android:layout_width">@dimen/dp36</item>
@@ -81,5 +82,38 @@
         <item name="android:textColor">@color/color_white</item>
         <item name="android:layout_height">@dimen/dp50</item>
         <item name="android:background">@color/color_main_blue</item>
+    </style>
+
+    <style name="vertical_divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/bolder_grey</item>
+    </style>
+    <!--
+          android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:background="@color/color_white"
+            android:hint="@string/signup_input_value_hint"
+            android:cursorVisible="true"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textColor="#000000"
+    -->
+    <style name="signup_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp50</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:paddingStart">@dimen/dp8</item>
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:maxLength">4</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+
+
+    <style name="empty_image">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/ic_close</item>
     </style>
 </resources>
