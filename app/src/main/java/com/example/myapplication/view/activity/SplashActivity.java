@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Utils.Const;
+import com.example.myapplication.utils.Const;
 import com.example.myapplication.databinding.ActivitySplashBinding;
 import com.example.myapplication.view.custom.BaseActivity;
 
