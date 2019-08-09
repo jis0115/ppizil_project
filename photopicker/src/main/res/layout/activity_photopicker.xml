@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.ppizil.photopicker.viewmodel.PhotoPickerViewModel" />
+
+        <variable
+            name="viewmodel"
+            type="PhotoPickerViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:setGridAdpater_4row="@{viewmodel.getAdapter()}">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+</layout>
