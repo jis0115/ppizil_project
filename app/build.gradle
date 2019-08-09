@@ -21,8 +21,13 @@ android {
         }
     }
 
+    /*필수*/
     dataBinding {
         enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -31,6 +36,7 @@ dependencies {
     def ted_version = "2.2.2"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':photopicker')
 
     // 레이아웃 관련
     implementation 'androidx.appcompat:appcompat:1.0.2'
