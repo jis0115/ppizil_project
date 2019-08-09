@@ -1,10 +1,16 @@
 package com.example.myapplication.utils;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -63,5 +69,20 @@ public class Const {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static void setImageLoadGeneral(ImageView imageView, String path) {
+        Glide.with(imageView.getContext())
+                .load(path)
+                .centerCrop()
+                .into(imageView);
+
+    }
+
+    public static void setWrapContentDialogSize(DialogFragment dialogSize) {
+        ViewGroup.LayoutParams params = dialogSize.getDialog().getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        dialogSize.getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
     }
 }

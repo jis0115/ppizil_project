@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dp25"
+        android:layout_marginEnd="@dimen/dp25"
+        android:paddingBottom="@dimen/dp15"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <LinearLayout
+            android:id="@+id/btn_viewgroup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/dp15"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp15"
+            android:paddingEnd="@dimen/dp15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintVertical_bias="0.0">
+
+            <Button
+                android:id="@+id/cancel_btn"
+                style="@style/bottom_confirm_btn"
+                android:layout_weight="1"
+                android:background="@drawable/border_cancel_btn"
+                android:gravity="center"
+                android:text="@string/cancel_btn"
+                android:textColor="@color/color_red" />
+
+            <Button
+                android:id="@+id/confirm_btn"
+                style="@style/bottom_confirm_btn"
+                android:layout_marginStart="@dimen/dp6"
+                android:layout_weight="1"
+                android:background="@drawable/border_confirm_btn"
+                android:text="@string/confrim_btn"
+                android:textColor="@color/color_main_blue" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
