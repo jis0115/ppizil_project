@@ -9,4 +9,5 @@
     <color name="color_trans">#00FFFFFF</color>
     <color name="color_main_blue">#3F51B5</color>
     <color name="bolder_grey">#b9b9c1</color>
+    <color name="color_red">#FF001F</color>
 </resources>
