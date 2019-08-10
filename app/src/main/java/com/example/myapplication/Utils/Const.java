@@ -24,6 +24,8 @@ public class Const {
     public static final int TAG_SLEEP_TIME = 3000;
     public static final int TAG_ALBUM = 5100;
 
+    public static final String TAG_USER_TOKEN ="userToken";
+
     public static Gson gson = new Gson();
 
     public static String toJsonString(Object object) {
@@ -44,18 +46,24 @@ public class Const {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static final String MULTIPART_FORM_DATA = "image/*";
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
 
     @NonNull
     public static MultipartBody.Part prepareFilePart(File file) {
         try {
             MakeLog.log(" 파일이름", "" + file.getName());
             RequestBody requestFile = (RequestBody) RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
-            return MultipartBody.Part.createFormData("files", "", requestFile);
+            return MultipartBody.Part.createFormData("profileImg", file.getName(), requestFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @NonNull
+    public static RequestBody makeRequestBody(String date){
+        return RequestBody.create(MediaType.parse("text/plain"), date);
+
     }
 
 
