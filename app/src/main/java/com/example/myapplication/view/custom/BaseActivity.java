@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     public abstract void init();
@@ -18,13 +18,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void startNextActivity(Class<?> className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
+        finish();
     }
 
     public void startIncludePayloadActivity(Intent intent) {
         startActivity(intent);
     }
 
-    public void startNextActivityForResult(Intent intent,int requestCode){
-        startActivityForResult(intent,requestCode);
+    public void startNextActivityForResult(Intent intent, int requestCode) {
+        startActivityForResult(intent, requestCode);
     }
 }

@@ -14,5 +14,10 @@
     <!--공통 버튼 -->
     <string name="confrim_btn">확인</string>
     <string name="cancel_btn">취소</string>
+    <string name="login_btn">로그인하기</string>
+    <string name="signup_btn">회원가입</string>
+    <string name="login_nickname_hint">닉네임을 입력해주세요</string>
+    <string name="login_pwd_hint">4자리 패스워드를 입력해주세요</string>
+
 
 </resources>

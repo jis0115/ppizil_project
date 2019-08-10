@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -91,14 +92,19 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             switch (resultCode) {
-              case PhotoPickerActivity.RESULT_SUCCESS:
-                  Bundle bundle = new Bundle();
-                  //
-                  bundle.putString(PhotoPickerActivity.TAG_FILEPATH,data.getStringExtra(PhotoPickerActivity.TAG_FILEPATH));
-                  DetailPhotoDialog dialog = DetailPhotoDialog.newInstance(bundle);
-                  dialog.show(getSupportFragmentManager(),"detail");
-                break;
+                case PhotoPickerActivity.RESULT_SUCCESS:
+                    Bundle bundle = new Bundle();
+                    //
+                    bundle.putString(PhotoPickerActivity.TAG_FILEPATH, data.getStringExtra(PhotoPickerActivity.TAG_FILEPATH));
+                    DetailPhotoDialog dialog = DetailPhotoDialog.newInstance(bundle);
+                    dialog.show(getSupportFragmentManager(), "detail");
+                    break;
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
