@@ -67,7 +67,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ((BaseActivity) activity).startNextActivity(SignActivity.class);
+            ((BaseActivity) activity).startNextActivity(StartActivity.class);
         }
     }
 
