@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.myapplication.R;
 import com.example.myapplication.utils.Const;
 import com.example.myapplication.databinding.ActivitySplashBinding;
+import com.example.myapplication.utils.SharedPreferenceBase;
 import com.example.myapplication.view.custom.BaseActivity;
 
 public class SplashActivity extends BaseActivity implements View.OnClickListener {
@@ -32,7 +33,12 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        startSleepThread();
+
+        String token = SharedPreferenceBase.getInstance().getString(Const.TAG_USER_TOKEN, null);
+        if (Const.isNotNullAndEmpty(token))
+            startNextActivity(MainActivity.class);
+        else
+            startSleepThread();
     }
 
     @Override
