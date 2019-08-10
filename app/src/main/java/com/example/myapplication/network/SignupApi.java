@@ -13,6 +13,6 @@ public interface SignupApi {
 
 
     @Multipart
-    @POST
-    Call<ResponseBody> requestSignupApi(@Part MultipartBody.Part file , @Part("params")RequestBody body);
+    @POST("v1/auth/register")
+    Call<ResponseBody> requestSignupApi(@Part MultipartBody.Part file, @PartMap Map<String, RequestBody> params);
 }

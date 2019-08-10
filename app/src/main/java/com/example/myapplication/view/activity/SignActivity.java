@@ -22,11 +22,15 @@ import com.example.myapplication.data.model.SignupModel;
 import com.example.myapplication.databinding.ActivitySignupBinding;
 import com.example.myapplication.network.RetrofitHelper;
 import com.example.myapplication.view.custom.BaseActivity;
+import com.example.myapplication.view.dialog.DetailPhotoDialog;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.ppizil.photopicker.view.PhotoPickerActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -35,8 +39,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.myapplication.view.activity.MainActivity.REQUEST_PHOTOPICK;
+import static com.ppizil.photopicker.view.PhotoPickerActivity.RESULT_SUCCESS;
+
 public class SignActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
+    private static final String TAG_IMAGE_TYPE = "image/*";
 
     private ActivitySignupBinding binding;
     private SignupTitles signupTitles;
@@ -58,16 +66,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         titlesList = new ArrayList<>();
         signupTitles = new SignupTitles(getResources().getStringArray(R.array.signup_title));
         signupModel = new SignupModel();
-
         addTitleList();
         setTitlesSet();
     }
 
 
+    //타이블뷰를 리스트로 관리
     public void addTitleList() {
         binding.includeAge.inputValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-
         titlesList.add(binding.includeNickname.textTitle);
         titlesList.add(binding.includeAge.textTitle);
         titlesList.add(binding.includeAddr.textTitle);
@@ -75,6 +81,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         titlesList.add(binding.includeRePwd.textTitle);
     }
 
+    //Arrays.xml data ->  set
     public void setTitlesSet() { // 입력필드 타이틀 수정
         for (int i = 0; i < titlesList.size(); i++) {
             titlesList.get(i).setText(signupTitles.getTitles()[i]);
@@ -96,10 +103,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 sumValues();
                 if (signupModel.checkValid()) {
                     if (signupModel.checkPwdDuplicate()) {
-                        MakeLog.log("객체 시리얼라이즈",Const.toJsonString(signupModel.getSignupEntity()));
+                        MakeLog.log("객체 시리얼라이즈", Const.toJsonString(signupModel.getSignupEntity()));
                         Const.showToastMsg(SignActivity.this, "Success!");
-                        startNextActivity(MainActivity.class);
-                        //requestRegistApi();
+                        // startNextActivity(MainActivity.class);
+                        requestRegistApi();
                     } else {
                         Const.showToastMsg(SignActivity.this, "Not dulplicated Pwd!");
                     }
@@ -135,20 +142,24 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 
     public void RendingAlbum() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, Const.TAG_ALBUM);
+        Intent intent = new Intent(this, PhotoPickerActivity.class);
+        startNextActivityForResult(intent, Const.TAG_ALBUM);
+
+      /*  Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType(TAG_IMAGE_TYPE);
+        startActivityForResult(intent, Const.TAG_ALBUM);*/
     }
+
 
     public void sumValues() {
         signupModel.getSignupEntity().setUserName(binding.includeNickname.inputValue.getText().toString());
 
         String age = binding.includeAge.inputValue.getText().toString();
-        if(Const.isInteger(age)){
+        if (Const.isInteger(age)) {
             signupModel.getSignupEntity().setAge(Integer.parseInt(age));
-        }
-        else{
-            Const.showToastMsg(SignActivity.this,"Check your Age");
+        } else {
+            Const.showToastMsg(SignActivity.this, "Check your Age");
         }
         signupModel.getSignupEntity().setAddr(binding.includeAddr.inputValue.getText().toString());
         signupModel.getSignupEntity().setPassword(binding.includePwd.inputValue.getText().toString());
@@ -160,37 +171,29 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         super.onActivityResult(requestCode, resultCode, data);
         //request => startActivity할때 넣어준 값
         // result => 타겟 Activity에서 finish 전 setResult(변수)값
-        if (requestCode == Const.TAG_ALBUM) {
-            if (data != null && data.getData() != null) {
-                Uri uri = data.getData();
-                signupModel.setFilePath(uri.toString());
-                setProfileImage(uri);
-            } else {
-
+        if (data != null) {
+            switch (resultCode) {
+                case PhotoPickerActivity.RESULT_SUCCESS:
+                    String path = data.getStringExtra(PhotoPickerActivity.TAG_FILEPATH);
+                    signupModel.setFilePath(path);
+                    Const.setImageLoadGeneral(binding.profileImage, path);
+                    break;
             }
         }
     }
 
-    //뺄 수 있으면 Utils 메서드로 빼기
-    public void setProfileImage(Uri uri) {
-        Glide.with(this)
-                .load(uri.toString())
-                .centerCrop()
-                .into(binding.profileImage);
-    }
-
-
     public void requestRegistApi() {
-        MultipartBody.Part part = signupModel.getMultipartObj();
-        RequestBody requestBody = signupModel.getConvertToRequestBody();
 
-        Call<ResponseBody> call = RetrofitHelper.getinstance().getSignupApi().requestSignupApi(part, requestBody);
+        Call<ResponseBody> call = RetrofitHelper.
+                getinstance().
+                getSignupApi().
+                requestSignupApi(signupModel.getMultipartObj(), signupModel.makeParams());
         Callback<ResponseBody> callback = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Const.showToastMsg(SignActivity.this, "Success Regis!");
-                    //  SignActivity.this.startNextActivity(MainActivity.class);
+                    SignActivity.this.startNextActivity(LoginActivity.class);
                 } else {
                     String errorMsg = RetrofitHelper.getErrorMsg(response);
                     Const.showToastMsg(SignActivity.this, errorMsg);
@@ -200,11 +203,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                MakeLog.log("에러", t.getMessage());
             }
         };
-
-        //call.enqueue(callback);
+        call.enqueue(callback);
     }
 
     @Override

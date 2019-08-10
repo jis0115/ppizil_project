@@ -4,6 +4,8 @@ import com.example.myapplication.utils.Const;
 import com.example.myapplication.data.entity.SignupEntity;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -80,5 +82,17 @@ public class SignupModel {
     public RequestBody getConvertToRequestBody() {
         return RequestBody.create(MediaType.parse("text/plain"), Const.toJsonString(getSignupEntity()));
     }
+
+
+    public Map<String,RequestBody> makeParams(){
+        Map<String,RequestBody> params = new HashMap<>();
+        params.put("nickname",Const.makeRequestBody(signupEntity.getUserName()));
+        params.put("password",Const.makeRequestBody(signupEntity.getPassword()));
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), Const.toJsonString(params));
+        return params;
+    }
+
+
+
 
 }
