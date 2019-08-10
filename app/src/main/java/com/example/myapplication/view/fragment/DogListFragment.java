@@ -12,8 +12,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.DogListAdapter;
+import com.example.myapplication.data.model.DogListModel;
 import com.example.myapplication.databinding.FragmentDogListBinding;
+import com.example.myapplication.network.RetrofitHelper;
+import com.example.myapplication.network.dto.DogListDto;
+import com.example.myapplication.utils.MakeLog;
 import com.example.myapplication.view.custom.BaseFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.myapplication.adapter.DogListAdapter.TYPE_EMPTY;
 
@@ -28,6 +36,7 @@ public class DogListFragment extends BaseFragment {
 
     private FragmentDogListBinding binding;
     private DogListAdapter adapter;
+    private DogListModel dogListModel;
 
     private GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
         @Override
@@ -53,12 +62,20 @@ public class DogListFragment extends BaseFragment {
         init();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getAllDogListApi();
+    }
+
     @Override
     public void init() {
+        dogListModel = new DogListModel();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         binding.recyclerview.setLayoutManager(gridLayoutManager);
         gridLayoutManager.setSpanSizeLookup(spanSizeLookup);
-        adapter = new DogListAdapter(getContext());
+        adapter = new DogListAdapter(getContext(), dogListModel);
         binding.recyclerview.setAdapter(adapter);
     }
 
@@ -66,4 +83,33 @@ public class DogListFragment extends BaseFragment {
     public void setListener() {
 
     }
+
+
+    public void getAllDogListApi() {
+
+        Call<DogListDto> call = RetrofitHelper.getinstance().getDoginfoApi().getDogListApi();
+
+        Callback<DogListDto> callback = new Callback<DogListDto>() {
+            @Override
+            public void onResponse(Call<DogListDto> call, Response<DogListDto> response) {
+                if (response.isSuccessful()) {
+                    DogListDto dogListDto = response.body();
+                    dogListModel.setDoglistEntity(dogListDto);
+                    adapter.adapterNotify();
+
+                } else {
+                    MakeLog.log("getAllDogListApi() fail ", "" + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DogListDto> call, Throwable t) {
+                MakeLog.log("getAllDogListApi() exception", t.getMessage());
+            }
+        };
+
+        RetrofitHelper.getinstance().enqueueWithRetry(call, callback);
+    }
+
+
 }

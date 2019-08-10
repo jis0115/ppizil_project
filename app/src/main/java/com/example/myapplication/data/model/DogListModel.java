@@ -1,20 +1,26 @@
 package com.example.myapplication.data.model;
 
 import com.example.myapplication.data.entity.DogListEntity;
+import com.example.myapplication.network.dto.DogListDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DogListModel {
 
-    private List<DogListEntity> items;
+    private DogListDto doglistEntity;
+
 
     public DogListModel() {
-        items = new ArrayList<>();
+        doglistEntity = new DogListDto();
     }
 
-    public DogListEntity getIndexDogEntity(int pos){
-        return  items.get(pos);
+    public void setDoglistEntity(DogListDto doglistEntity) {
+        this.doglistEntity = doglistEntity;
     }
 
+    public DogListDto getDoglistEntity() {
+        return doglistEntity;
+    }
 }
+
