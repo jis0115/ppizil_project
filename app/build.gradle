@@ -13,10 +13,17 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "String", "BASEURL", "\"http://54.180.104.223:3000/\""
+            buildConfigField "String", "ImageBaseURL", "\"http://54.180.104.223:3000/\""
+
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+                    buildConfigField "String", "ImageBaseURL", "\"http://54.180.104.223:3000\""
+
+            buildConfigField "String", "BASEURL", "\"http://54.180.104.223:3000/\""
 
         }
     }
