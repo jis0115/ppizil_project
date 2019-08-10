@@ -206,7 +206,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 MakeLog.log("에러", t.getMessage());
             }
         };
-        call.enqueue(callback);
+        RetrofitHelper.getinstance().enqueueWithRetry(call, callback);
     }
 
     @Override
@@ -220,5 +220,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 signupModel.getSignupEntity().setGender("F");// 여성
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startNextActivity(StartActivity.class);
     }
 }
