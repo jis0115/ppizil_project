@@ -54,7 +54,7 @@ class DogListDto {
             companion object {
 
                 @SuppressLint("ParcelCreator")
-                val CREATOR: Parcelable.Creator<Img> = object : Parcelable.Creator<Img> {
+                @JvmField val CREATOR: Parcelable.Creator<Img> = object : Parcelable.Creator<Img> {
                     override fun createFromParcel(source: Parcel): Img {
                         return Img(source)
                     }
@@ -98,7 +98,7 @@ class DogListDto {
         companion object {
 
             @SuppressLint("ParcelCreator")
-            val CREATOR: Parcelable.Creator<DetailInfo> = object : Parcelable.Creator<DetailInfo> {
+            @JvmField val CREATOR: Parcelable.Creator<DetailInfo> = object : Parcelable.Creator<DetailInfo> {
                 override fun createFromParcel(source: Parcel): DetailInfo {
                     return DetailInfo(source)
                 }
