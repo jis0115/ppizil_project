@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">입양하개(kotlin)</string>
+
+
+    <!--회원가입-->
+    <string name="signup_title_nickname">닉네임</string>
+    <string name="signup_title_pwd">패스워드</string>
+    <string name="signup_title_profile_image">프로필 이미지</string>
+    <string name="signup_input_value_hint">해당 값을 입력 해 주세요</string>
+    <string name="signup_title_gender">성별</string>
+    <string name="signup_radio_male">남자</string>
+    <string name="signpu_radio_femal">여자</string>
+
+    <!--공통 버튼 -->
+    <string name="confrim_btn">확인</string>
+    <string name="cancel_btn">취소</string>
+    <string name="login_btn">로그인하기</string>
+    <string name="signup_btn">회원가입</string>
+    <string name="login_nickname_hint">닉네임을 입력해주세요</string>
+    <string name="login_pwd_hint">4자리 패스워드를 입력해주세요</string>
+
+
+</resources>

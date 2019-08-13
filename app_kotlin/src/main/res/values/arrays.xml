@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="signup_title">
+        <item>닉네임</item>
+        <item>나이</item>
+        <item>주소</item>
+        <item>패스워드</item>
+        <item>패스워드 확인</item>
+    </array>
+
+</resources>

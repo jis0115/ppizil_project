@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp1"
+        android:background="@drawable/border_grey_white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/text_style_14sp_black"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/dp50"
+            android:text="타이틀" />
+
+        <ImageView style="@style/vertical_divider" />
+
+        <EditText
+            android:id="@+id/input_value"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:background="@color/color_white"
+            android:cursorVisible="true"
+            android:hint="@string/signup_input_value_hint"
+            android:paddingStart="@dimen/dp8"
+            android:textColor="#000000" />
+    </LinearLayout>
+</layout>
